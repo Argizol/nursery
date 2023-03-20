@@ -83,5 +83,7 @@ namespace Nursery.commands
             
         }
 
+        //to do метод поиска животного по имени
+
     }
 }

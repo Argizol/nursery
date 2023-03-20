@@ -67,7 +67,8 @@ namespace Nursery.commands
                 view.Print($"Введите вид животного:" +
                     $" Cat,\n Dog,\n Humster,\n Horse, \n Camel,\n Donkey");
                 result = view.GetString();
-                work = Animals.petsSpecies.Contains(result.ToLower().Trim()) || Animals.packAnimalSpecies.Contains(result.ToLower().Trim());
+                work = Animals.petsSpecies.Contains(result.ToLower().Trim())
+                    || Animals.packAnimalSpecies.Contains(result.ToLower().Trim());
                 if (!work) view.Print("Необходимо ввести вид животного из списка");
             }
             while (!work);

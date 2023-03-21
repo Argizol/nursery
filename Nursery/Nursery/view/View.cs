@@ -10,7 +10,7 @@
         }
 
         internal string GetString()
-        {
+        {            
             return Console.ReadLine();
         }
         internal void ReadKey()

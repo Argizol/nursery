@@ -6,126 +6,64 @@ namespace Nursery.commands
 {
     internal class UICommands
     {
-        View view;
+        private View view;
         private static Dictionary<string, string> listCommands = new()
         {
-             {"AddAnimal", "Добавляет животное в базу данных питомника."},
-             {"PrintAnimalCommands", "Выводит на экран команды, которые знает животное."},
-             {"AddNewAnimalComand", "Обучает животное новой команде."},
+             {"Add", "Добавляет животное в базу данных питомника."},
+             {"ShowCmd", "Выводит на экран команды, которые знает животное."},
+             {"AddCmd", "Обучает животное новой команде."},
              {"Help", "Выводит список доступных команд для пользователя."},
              {"Exit", "Выйти из программы."}
         };
 
-        public UICommands(View view1)
+        internal UICommands(View view1)
         {
             view = view1;
         }
-        public void AddAnimal(string name, string species)
+        internal void AddAnimal(string name, string species)
         {
             switch (species.ToLower().Trim())
             {
                 case "cat":
                     var newCat = new Cat(name, species);
-                    var result = new List<Animals>();
-                    if (!Animals.pets.ContainsKey(newCat.Specias))
-                    {
-                        var list = new List<Animals>();
-                        list.Add(newCat);
-                        Animals.pets.Add(newCat.Specias,list);
-                    }
-                    else if(Animals.pets.TryGetValue(species, out result))
-                    {
-                        var list = result;
-                        list.Add(newCat);                        
-                    }
-
+                    AddToPetDict(species, newCat);
                     break;
                 case "dog":
                     var newDog = new Dogs(name, species);
-                    if (!Animals.pets.ContainsKey(newDog.Specias))
-                    {
-                        var list = new List<Animals>();
-                        list.Add(newDog);
-                        Animals.pets.Add(newDog.Specias, list);
-                    }
-                    else if (Animals.pets.TryGetValue(species, out result))
-                    {
-                        var list = result;
-                        list.Add(newDog);
-                    }
+                    AddToPetDict(species, newDog);
                     break;
                 case "humster":
                     var newHumster = new Humsters(name, species);
-                    if (!Animals.pets.ContainsKey(newHumster.Specias))
-                    {
-                        var list = new List<Animals>();
-                        list.Add(newHumster);
-                        Animals.pets.Add(newHumster.Specias, list);
-                    }
-                    else if (Animals.pets.TryGetValue(species, out result))
-                    {
-                        var list = result;
-                        list.Add(newHumster);
-                    }
+                    AddToPetDict(species, newHumster);
                     break;
                 case "horse":
                     var newHorse = new Horses(name, species);
-                    if (!Animals.packedAnimals.ContainsKey(newHorse.Specias))
-                    {
-                        var list = new List<Animals>();
-                        list.Add(newHorse);
-                        Animals.packedAnimals.Add(newHorse.Specias, list);
-                    }
-                    else if (Animals.packedAnimals.TryGetValue(species, out result))
-                    {
-                        var list = result;
-                        list.Add(newHorse);
-                    }
+                    AddToPackAnimalsDict(species, newHorse);
                     break;
                 case "camel":
                     var newCamel = new Camels(name, species);
-                    if (!Animals.packedAnimals.ContainsKey(newCamel.Specias))
-                    {
-                        var list = new List<Animals>();
-                        list.Add(newCamel);
-                        Animals.packedAnimals.Add(newCamel.Specias, list);
-                    }
-                    else if (Animals.packedAnimals.TryGetValue(species, out result))
-                    {
-                        var list = result;
-                        list.Add(newCamel);
-                    }
+                    AddToPackAnimalsDict(species, newCamel);
                     break;
                 case "donkey":
                     var newDonkey = new Donkeys(name, species);
-                    if (!Animals.packedAnimals.ContainsKey(newDonkey.Specias))
-                    {
-                        var list = new List<Animals>();
-                        list.Add(newDonkey);
-                        Animals.packedAnimals.Add(newDonkey.Specias, list);
-                    }
-                    else if (Animals.packedAnimals.TryGetValue(species, out result))
-                    {
-                        var list = result;
-                        list.Add(newDonkey);
-                    }
+                    AddToPackAnimalsDict(species, newDonkey);
                     break;
             }
         }
 
-        public void PrintAnimalCommands(Animals animal)
+        internal void PrintAnimalCommands(Animals animal)
         {
             foreach (string item in animal.Commands)
                 view.Print(item);
         }
 
-        public string GetAnimalName()
+        internal string GetAnimalName()
         {
             view.Print($"Введите имя животного: ");
             return view.GetString();
         }
 
-        public string GetAnimalSpecies()
+        internal string GetAnimalSpecies()
         {
             bool work;
             string result;
@@ -143,7 +81,7 @@ namespace Nursery.commands
             return result;
         }
 
-        public void AddNewAnimalComand(Animals animal)
+        internal void AddNewAnimalComand(Animals animal)
         {
             view.Print($"Введите название для новой команды");
             string result = view.GetString();
@@ -151,12 +89,12 @@ namespace Nursery.commands
             view.Print($"Команда {result} изучена {animal.Name}");
         }
 
-        public Animals SearchAnimalByName(string name)
+        internal Animals SearchAnimalByName(string name)
         {
             var list = new List<Animals>();
             var result = new List<Animals>();
 
-            string animalName = GetAnimalName();
+            string animalName = name;
             string species = GetSpecies();
 
             if (Animals.pets.ContainsKey(species))
@@ -178,20 +116,20 @@ namespace Nursery.commands
             return default;
         }
 
-        public void Help()
+        internal void Help()
         {
             view.Print("Список команд:");
             foreach (var command in UICommands.listCommands)
-                view.Print($"{command.Key} {command.Value}");
+                view.Print($"{command.Key}\t-\t{command.Value}");
         }
 
-        public  void ShowSpecies()
+        internal void ShowSpecies()
         {
-            view.Print($"Введите вид животного:" +
+            view.Print($"Введите вид животного:\n" +
                    $" Cat,\n Dog,\n Humster,\n Horse, \n Camel,\n Donkey");
         }
 
-        public string GetSpecies()
+        internal string GetSpecies()
         {
             bool work;
             string result;
@@ -207,6 +145,44 @@ namespace Nursery.commands
             }
             while (!work);
             return result;
+        }
+
+        private void AddToPetDict(string species, Animals animal)
+        {
+            var result = new List<Animals>();
+            if (!Animals.pets.ContainsKey(animal.Specias))
+            {
+                var list = new List<Animals>();
+                list.Add(animal);
+                Animals.pets.Add(animal.Specias, list);
+            }
+            else if (Animals.pets.TryGetValue(species, out result))
+            {
+                var list = result;
+                list.Add(animal);
+            }
+            AddSuccess(animal);
+        }
+        private void AddToPackAnimalsDict(string species, Animals animal)
+        {
+            var result = new List<Animals>();
+            if (!Animals.packedAnimals.ContainsKey(animal.Specias))
+            {
+                var list = new List<Animals>();
+                list.Add(animal);
+                Animals.packedAnimals.Add(animal.Specias, list);                
+            }
+            else if (Animals.packedAnimals.TryGetValue(species, out result))
+            {
+                var list = result;
+                list.Add(animal);
+            }
+            AddSuccess(animal);
+        }
+
+        private void AddSuccess(Animals animal)
+        {
+            view.Print($"Животное {animal.Name} вида {animal.Specias} успешно добавлено");
         }
     }
 }

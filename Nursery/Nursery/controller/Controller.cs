@@ -1,13 +1,6 @@
-﻿using System;
-using Nursery.commands;
+﻿using Nursery.commands;
 using Nursery.view;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Nursery.controller
 {
@@ -24,28 +17,35 @@ namespace Nursery.controller
         public void Execute()
         {
             view.Print("Добро пожаловать в приложение 'Nursery'.");
+            view.Print("");
             view.Print("Вам доступны следующие команды: ");
+            view.Print("");
             cmd.Help();
+
             while (true)
             {
                 view.Print("Введите команду: ");
                 var userCommand = view.GetString();
                 switch (userCommand)
                 {
-                    case "AddAnimal":
+                    case "Add":
                         cmd.AddAnimal(cmd.GetAnimalName(), cmd.GetAnimalSpecies());
+                        view.Print("");
                         break;
 
-                    case "PrintAnimalCommands":
+                    case "ShowCmd":
                         cmd.PrintAnimalCommands(cmd.SearchAnimalByName(cmd.GetAnimalName()));
+                        view.Print("");
                         break;
 
-                    case "AddNewAnimalComand":
+                    case "AddCmd":
                         cmd.AddNewAnimalComand(cmd.SearchAnimalByName(cmd.GetAnimalName()));
+                        view.Print("");
                         break;
 
                     case "Help":
                         cmd.Help();
+                        view.Print("");
                         break;
 
                     case "Exit":
@@ -55,6 +55,7 @@ namespace Nursery.controller
 
                     default:
                         view.Print("Неизвестная команда. Повторите ввод.");
+                        view.Print("");
                         break;
                 }
             }

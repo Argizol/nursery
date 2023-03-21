@@ -26,29 +26,34 @@ namespace Nursery.controller
             {
                 view.Print("Введите команду: ");
                 var userCommand = view.GetString();
-                switch (userCommand)
+                switch (userCommand.ToLower().Trim())
                 {
-                    case "Add":
+                    case "add":
                         cmd.AddAnimal(cmd.GetAnimalName(), cmd.GetAnimalSpecies());
                         view.Print("");
                         break;
 
-                    case "ShowCmd":
+                    case "count":
+                        cmd.PrintCount();
+                        view.Print("");
+                        break;
+
+                    case "showcmd":
                         cmd.PrintAnimalCommands(cmd.SearchAnimalByName(cmd.GetAnimalName()));
                         view.Print("");
                         break;
 
-                    case "AddCmd":
+                    case "addcmd":
                         cmd.AddNewAnimalComand(cmd.SearchAnimalByName(cmd.GetAnimalName()));
                         view.Print("");
                         break;
 
-                    case "Help":
+                    case "help":
                         cmd.Help();
                         view.Print("");
                         break;
 
-                    case "Exit":
+                    case "exit":
                         view.Print("Работа приложения завершена. Нажмите любую кнопку...");
                         view.ReadKey();
                         return;

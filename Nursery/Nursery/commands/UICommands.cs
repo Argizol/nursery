@@ -13,6 +13,7 @@ namespace Nursery.commands
              {"ShowCmd", "Выводит на экран команды, которые знает животное."},
              {"AddCmd", "Обучает животное новой команде."},
              {"Help", "Выводит список доступных команд для пользователя."},
+             {"Count", "Вывод общего количества животных."},
              {"Exit", "Выйти из программы."}
         };
 
@@ -183,6 +184,11 @@ namespace Nursery.commands
         private void AddSuccess(Animals animal)
         {
             view.Print($"Животное {animal.Name} вида {animal.Specias} успешно добавлено");
+        }
+
+        internal void PrintCount()
+        {
+            view.Print($"Всего животных в питомнике: {Animals.counter}");
         }
     }
 }

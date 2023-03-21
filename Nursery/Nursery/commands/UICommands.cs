@@ -17,9 +17,9 @@ namespace Nursery.commands
              {"Exit", "Выйти из программы."}
         };
 
-        internal UICommands(View view1)
+        internal UICommands(View view)
         {
-            view = view1;
+            this.view = view;
         }
         internal void AddAnimal(string name, string species)
         {

@@ -6,13 +6,13 @@ namespace Nursery.controller
 {
     internal class Controller
     {        
-        View view;
-        UICommands cmd;
+        private View view;
+        private UICommands cmd;
 
-        public Controller(View view1, UICommands cmd1)
+        public Controller(View view, UICommands cmd)
         {
-            view = view1;
-            cmd = cmd1;
+            this.view = view;
+            this.cmd = cmd;
         }
         public void Execute()
         {

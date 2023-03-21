@@ -1,12 +1,6 @@
 ﻿using Nursery.model;
 using Nursery.model.PackAnimals;
 using Nursery.view;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nursery.commands
 {
@@ -20,7 +14,7 @@ namespace Nursery.commands
              {"AddNewAnimalComand", "Обучает животное новой команде."},
              {"Help", "Выводит список доступных команд для пользователя."},
              {"Exit", "Выйти из программы."}
-        }
+        };
 
         public UICommands(View view1)
         {
@@ -32,27 +26,89 @@ namespace Nursery.commands
             {
                 case "cat":
                     var newCat = new Cat(name, species);
-                    //to do добавление в словарь
+                    var result = new List<Animals>();
+                    if (!Animals.pets.ContainsKey(newCat.Specias))
+                    {
+                        var list = new List<Animals>();
+                        list.Add(newCat);
+                        Animals.pets.Add(newCat.Specias,list);
+                    }
+                    else if(Animals.pets.TryGetValue(species, out result))
+                    {
+                        var list = result;
+                        list.Add(newCat);                        
+                    }
+
                     break;
                 case "dog":
                     var newDog = new Dogs(name, species);
-                    //to do добавление в словарь
+                    if (!Animals.pets.ContainsKey(newDog.Specias))
+                    {
+                        var list = new List<Animals>();
+                        list.Add(newDog);
+                        Animals.pets.Add(newDog.Specias, list);
+                    }
+                    else if (Animals.pets.TryGetValue(species, out result))
+                    {
+                        var list = result;
+                        list.Add(newDog);
+                    }
                     break;
                 case "humster":
                     var newHumster = new Humsters(name, species);
-                    //to do добавление в словарь
+                    if (!Animals.pets.ContainsKey(newHumster.Specias))
+                    {
+                        var list = new List<Animals>();
+                        list.Add(newHumster);
+                        Animals.pets.Add(newHumster.Specias, list);
+                    }
+                    else if (Animals.pets.TryGetValue(species, out result))
+                    {
+                        var list = result;
+                        list.Add(newHumster);
+                    }
                     break;
                 case "horse":
                     var newHorse = new Horses(name, species);
-                    //to do добавление в словарь
+                    if (!Animals.packedAnimals.ContainsKey(newHorse.Specias))
+                    {
+                        var list = new List<Animals>();
+                        list.Add(newHorse);
+                        Animals.packedAnimals.Add(newHorse.Specias, list);
+                    }
+                    else if (Animals.packedAnimals.TryGetValue(species, out result))
+                    {
+                        var list = result;
+                        list.Add(newHorse);
+                    }
                     break;
                 case "camel":
                     var newCamel = new Camels(name, species);
-                    //to do добавление в словарь
+                    if (!Animals.packedAnimals.ContainsKey(newCamel.Specias))
+                    {
+                        var list = new List<Animals>();
+                        list.Add(newCamel);
+                        Animals.packedAnimals.Add(newCamel.Specias, list);
+                    }
+                    else if (Animals.packedAnimals.TryGetValue(species, out result))
+                    {
+                        var list = result;
+                        list.Add(newCamel);
+                    }
                     break;
                 case "donkey":
                     var newDonkey = new Donkeys(name, species);
-                    //to do добавление в словарь
+                    if (!Animals.packedAnimals.ContainsKey(newDonkey.Specias))
+                    {
+                        var list = new List<Animals>();
+                        list.Add(newDonkey);
+                        Animals.packedAnimals.Add(newDonkey.Specias, list);
+                    }
+                    else if (Animals.packedAnimals.TryGetValue(species, out result))
+                    {
+                        var list = result;
+                        list.Add(newDonkey);
+                    }
                     break;
             }
         }
@@ -97,19 +153,19 @@ namespace Nursery.commands
 
         public Animals SearchAnimalByName(string name)
         {
-            var list;
-            var result;
+            var list = new List<Animals>();
+            var result = new List<Animals>();
 
             string animalName = GetAnimalName();
             string species = GetSpecies();
 
             if (Animals.pets.ContainsKey(species))
-                if (Animals.pets.TryGetValue(species, out result)
+                if (Animals.pets.TryGetValue(species, out result))
                     list = result;
                 else if (Animals.packedAnimals.ContainsKey(species))
-                    if (Animals.packedAnimals.TryGetValue(species, out result)
+                    if (Animals.packedAnimals.TryGetValue(species, out result))
                         list = result;
-                    else return null;
+                    else return default;
 
             foreach (Animals animals in list)
             {
@@ -129,13 +185,13 @@ namespace Nursery.commands
                 view.Print($"{command.Key} {command.Value}");
         }
 
-        public static void ShowSpecies()
+        public  void ShowSpecies()
         {
             view.Print($"Введите вид животного:" +
                    $" Cat,\n Dog,\n Humster,\n Horse, \n Camel,\n Donkey");
         }
 
-        public static string GetSpecies()
+        public string GetSpecies()
         {
             bool work;
             string result;
@@ -144,8 +200,8 @@ namespace Nursery.commands
             {
                 ShowSpecies();
                 result = view.GetString();
-                work = Animals.pets.Contains(result.ToLower().Trim())
-                    || Animals.packedAnimals.Contains(result.ToLower().Trim());
+                work = Animals.pets.ContainsKey(result.ToLower().Trim())
+                    || Animals.packedAnimals.ContainsKey(result.ToLower().Trim());
                 if (!work) view.Print("Необходимо ввести вид животного из списка");
                 else break;
             }

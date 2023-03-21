@@ -1,11 +1,4 @@
-﻿using Nursery.model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nursery.view
+﻿namespace Nursery.view
 {
     internal class View
     {
@@ -17,11 +10,7 @@ namespace Nursery.view
         }
         internal string GetString()
         {
-            return  Console.ReadLine();
-        }
-        internal string ReadKey()
-        {
-            return Console.ReadKey(true);
+            return Console.ReadLine();
         }
     }
 }

@@ -92,18 +92,17 @@ namespace Nursery.commands
 
         internal Animals SearchAnimalByName(string name)
         {
-            var list = new List<Animals>();
-            var result = new List<Animals>();
+            var list = new List<Animals>();          
 
             string animalName = name;
             string species = GetSpecies();
 
             if (Animals.pets.ContainsKey(species))
-                if (Animals.pets.TryGetValue(species, out result))
+                if (Animals.pets.TryGetValue(species, out List<Animals> result))
                     list = result;
                 else if (Animals.packedAnimals.ContainsKey(species))
-                    if (Animals.packedAnimals.TryGetValue(species, out result))
-                        list = result;
+                    if (Animals.packedAnimals.TryGetValue(species, out List<Animals> result1))
+                        list = result1;
                     else return default;
 
             foreach (Animals animals in list)
@@ -150,14 +149,14 @@ namespace Nursery.commands
 
         private void AddToPetDict(string species, Animals animal)
         {
-            var result = new List<Animals>();
+            
             if (!Animals.pets.ContainsKey(animal.Specias))
             {
                 var list = new List<Animals>();
                 list.Add(animal);
                 Animals.pets.Add(animal.Specias, list);
             }
-            else if (Animals.pets.TryGetValue(species, out result))
+            else if (Animals.pets.TryGetValue(species, out List<Animals> result))
             {
                 var list = result;
                 list.Add(animal);
@@ -165,15 +164,14 @@ namespace Nursery.commands
             AddSuccess(animal);
         }
         private void AddToPackAnimalsDict(string species, Animals animal)
-        {
-            var result = new List<Animals>();
+        {            
             if (!Animals.packedAnimals.ContainsKey(animal.Specias))
             {
                 var list = new List<Animals>();
                 list.Add(animal);
                 Animals.packedAnimals.Add(animal.Specias, list);                
             }
-            else if (Animals.packedAnimals.TryGetValue(species, out result))
+            else if (Animals.packedAnimals.TryGetValue(species, out List<Animals> result))
             {
                 var list = result;
                 list.Add(animal);

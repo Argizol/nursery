@@ -8,9 +8,15 @@
         {
             Console.WriteLine(message);
         }
+
         internal string GetString()
         {
             return Console.ReadLine();
         }
+        internal void ReadKey()
+        {
+            Console.ReadKey();
+        }
+
     }
 }

@@ -29,7 +29,7 @@ namespace Nursery.controller
                 switch (userCommand.ToLower().Trim())
                 {
                     case "add":
-                        cmd.AddAnimal(cmd.GetAnimalName(), cmd.GetAnimalSpecies());
+                        cmd.AddAnimal(cmd.GetAnimalName(), cmd.GetSpecies());
                         view.Print("");
                         break;
 

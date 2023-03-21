@@ -64,24 +64,6 @@ namespace Nursery.commands
             return view.GetString();
         }
 
-        internal string GetAnimalSpecies()
-        {
-            bool work;
-            string result;
-
-            do
-            {
-                ShowSpecies();
-                result = view.GetString();
-                work = Animals.petsSpecies.Contains(result.ToLower().Trim())
-                    || Animals.packAnimalSpecies.Contains(result.ToLower().Trim());
-                if (!work) view.Print("Необходимо ввести вид животного из списка");
-            }
-            while (!work);
-
-            return result;
-        }
-
         internal void AddNewAnimalComand(Animals animal)
         {
             view.Print($"Введите название для новой команды");
@@ -146,7 +128,7 @@ namespace Nursery.commands
             while (!work);
             return result;
         }
-
+        
         private void AddToPetDict(string species, Animals animal)
         {
             

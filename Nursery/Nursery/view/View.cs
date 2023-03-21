@@ -19,5 +19,9 @@ namespace Nursery.view
         {
             return  Console.ReadLine();
         }
+        internal string ReadKey()
+        {
+            return Console.ReadKey(true);
+        }
     }
 }

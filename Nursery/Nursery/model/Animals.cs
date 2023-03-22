@@ -27,6 +27,12 @@
             Commands = new();
             counter++;
         }
+
+        public override string ToString()
+        {
+            return $"Имя животного: {Name}\n" +
+                $"Вид животного: {Specias}";
+        }
         public string Name { get; }
         public string Specias { get; }
         public List<string> Commands { get; }

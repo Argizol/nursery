@@ -54,8 +54,12 @@ namespace Nursery.commands
 
         internal void PrintAnimalCommands(Animals animal)
         {
-            foreach (string item in animal.Commands)
-                view.Print(item);
+            if (animal.Commands.Count > 0)
+            {
+                foreach (string item in animal.Commands)
+                    view.Print(item);
+            }
+            else view.Print($"{animal.Name} пока не знает ни одной команды");
         }
 
         internal string GetAnimalName()

@@ -124,8 +124,8 @@ namespace Nursery.commands
             {
                 ShowSpecies();
                 result = view.GetString();
-                work = Animals.pets.ContainsKey(result.ToLower().Trim())
-                    || Animals.packedAnimals.ContainsKey(result.ToLower().Trim());
+                work = Animals.petsSpecies.Contains(result.ToLower().Trim())
+                    || Animals.packAnimalSpecies.Contains(result.ToLower().Trim());
                 if (!work) view.Print("Необходимо ввести вид животного из списка");
                 else break;
             }
